@@ -168,3 +168,20 @@ Promise.reject = function(err) {
         reject(err);
     });
 };
+
+Promise.all = function (promises) {
+    var results = [],
+        resolved = 0,
+        total = promises.length;
+    return new Promise(function (resolve, reject) {
+        promises.forEach(function (promise, index) {
+            promise.then(function (value) {
+                resolved++;
+                results[index] = value;
+                if (resolved === total) {
+                    resolve(results);
+                }
+            });
+        })
+    })
+};
