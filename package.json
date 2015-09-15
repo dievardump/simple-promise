@@ -1,0 +1,22 @@
+{
+  "name": "simple-promise",
+  "version": "0.0.1",
+  "description": "Simple Promise lib with just chainable then and catch",
+  "main": "Promise.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dievardump/simple-promise.git"
+  },
+  "keywords": [
+    "promise"
+  ],
+  "author": "dievardump",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dievardump/simple-promise/issues"
+  },
+  "homepage": "https://github.com/dievardump/simple-promise#readme"
+}
