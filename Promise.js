@@ -39,12 +39,7 @@ Promise.prototype.run = function(toRun, args) {
             self.reject(e); // catch errors
         }
 
-        if (res instanceof Promise) {
-            res.then(self.resolve.bind(self))
-                .catch(self.reject.bind(self));
-        } else {
-            self.resolve(res);
-        }
+        self.resolve(res);
     }
 
 };
@@ -58,9 +53,14 @@ Promise.prototype.resolve = function() {
     this._lastValue = args[0] || undefined; // save last returned value for future .then
 
     var next = self._getNextCallback();
-
-
-    this.run(next, args);
+    if (next) {
+        if (this._lastValue && this._lastValue instanceof Promise) {
+            this._lastValue.then(next)
+                .catch(self.reject.bind(self));
+        } else {
+            this.run(next, args);
+        }
+    }
 
     return this;
 };
@@ -181,6 +181,8 @@ Promise.all = function (promises) {
                 if (resolved === total) {
                     resolve(results);
                 }
+            }).catch(function (e) {
+                reject(e);
             });
         })
     })
