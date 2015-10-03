@@ -55,7 +55,8 @@ Promise.prototype.resolve = function() {
     var next = self._getNextCallback();
     if (next) {
         if (this._lastValue && this._lastValue instanceof Promise) {
-            this._lastValue.then(next)
+            this._lastValue
+                .then(this.run.bind(this, next))
                 .catch(self.reject.bind(self));
         } else {
             this.run(next, args);
